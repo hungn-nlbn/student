@@ -1,0 +1,41 @@
+<div class = "project_form">
+<%= form_with(model: student, local: true) do |form| %>
+  <% if student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+      <ul>
+      <% student.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <fieldset>
+  <legend>Enter Student Details</legend>
+  <div class="field">
+    <%= form.label :name, 'Name' %><br>
+    <%= form.text_field :name , :size => 50 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :birthday, 'Birthday' %><br>
+    <%= form.date_field :birthday%>
+  </div>
+
+  <div class="field">
+    <%= form.label :gender, 'Gender' %><br>
+    <%= form.select :gender, Student::GENDER, :prompt => "Select gender..." %>
+  </div>
+
+  <div class="field">
+    <%= form.label :project_id, 'Project' %><br>
+    <%= form.select :project_id, allproject.collect{|project| [project.name, project.id]},{}, {:include_blank=>true, :multiple => true} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  </fieldset>
+<% end %>
+</div>
